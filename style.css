@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+}
+
+.friends {
+  width: 50%;
+}
+.best-friends {
+  width: 50%;
+}
+
+.input {
+  width: 80%;
+}
+
+.friend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 50px;
+}
+
+.friend__avatar {
+  margin-right: 20px;
+}
+
+.friend__image {
+  width: 100px;
+  border-radius: 50%;
+}
+
+.friend__item {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+}

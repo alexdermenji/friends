@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Friends filter</title>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+  <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
+</head>
+
+<body>
+  <div class="main">
+    <div class="friends">
+      <input type="text" placeholder="фильтр" class="input">
+      <h2 class="friends__title"></h2>
+      <div class="friends__list">
+
+      </div>
+    </div>
+    <div class="best-friends">
+      <input type="text" placeholder="фильтр" class="input">
+      <h2 class="friends__title">Лучшие друзья</h2>
+    </div>
+  </div>
+
+  <script id="user-template" type="text/x-handlebars-template">
+
+    {{#each items}}
+        <div class="friend">
+          <div class="friend__item">
+            <div class="friend__avatar">
+            <img class="friend__image" src="{{photo_100}}"/>
+          </div>
+            <div>{{first_name}} {{last_name}}, [{{city.title}}, {{country.title}}]</div>
+          </div>
+            <div class="friend__arrow"><button class="btn">></button></div>
+        </div>
+        {{/each}}
+
+</script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
