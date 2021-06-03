@@ -16,7 +16,7 @@
 .friend {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding-right: 50px;
 }
 
@@ -35,4 +35,17 @@
   align-items: center;
   font-size: 20px;
   font-weight: 700;
+}
+
+.friends .friend__arrow .btn:before {
+  color: red;
+  content: ">";
+}
+.friends--best .friend__arrow .btn:before {
+  color: red;
+  content: "<";
+}
+
+.friends--best .friend__arrow {
+  order: -1;
 }

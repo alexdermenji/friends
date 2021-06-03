@@ -22,23 +22,27 @@
 
       </div>
     </div>
-    <div class="best-friends">
+    <div class="friends friends--best">
       <input type="text" placeholder="фильтр" class="input">
       <h2 class="friends__title">Лучшие друзья</h2>
+
+      <div class="friends__list">
+
+      </div>
     </div>
   </div>
 
   <script id="user-template" type="text/x-handlebars-template">
 
     {{#each items}}
-        <div class="friend">
+        <div class="friend" data-id="{{id}}">
           <div class="friend__item">
             <div class="friend__avatar">
             <img class="friend__image" src="{{photo_100}}"/>
           </div>
             <div>{{first_name}} {{last_name}}, [{{city.title}}, {{country.title}}]</div>
           </div>
-            <div class="friend__arrow"><button class="btn">></button></div>
+            <div class="friend__arrow"><button class="btn"></button></div>
         </div>
         {{/each}}
 
