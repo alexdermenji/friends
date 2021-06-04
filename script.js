@@ -25,6 +25,11 @@ function callApi(method, params) {
   });
 }
 
+let friends = [];
+let bestFriends = [];
+let friendsFilterValue = "";
+let bestFriendsFilterValue = "";
+
 function moveFriend(friendsToRemove, friendsToAdd, friendId) {
   const friendIndex = friendsToRemove.findIndex(
     (friend) => friend.id === friendId
@@ -34,18 +39,29 @@ function moveFriend(friendsToRemove, friendsToAdd, friendId) {
   friendsToAdd.unshift(deletedFriends[0]);
 }
 
-const input = document.querySelector(".input");
-
-input.addEventListener("keyup", (e) => {
-  // TODO: check e.target.closest(".friends").classList.contains("friends--best")
-  // TODO: move to separate function
-  const filteredFriends = friends.filter(
+function filterFriends(filterValue, friendsArr) {
+  const filteredFriends = friendsArr.filter(
     (friend) =>
-      friend.first_name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-      friend.last_name.toLowerCase().includes(e.target.value.toLowerCase())
+      friend.first_name.toLowerCase().includes(filterValue.toLowerCase()) ||
+      friend.last_name.toLowerCase().includes(filterValue.toLowerCase())
   );
-  console.log(friends);
-  render(filteredFriends, "");
+  return filteredFriends;
+}
+
+const inputs = document.querySelectorAll(".input");
+inputs.forEach((input) => {
+  input.addEventListener("keyup", (e) => {
+    if (e.target.closest(".friends").classList.contains("friends--best")) {
+      bestFriendsFilterValue = e.target.value;
+      render(
+        filterFriends(bestFriendsFilterValue, bestFriends),
+        ".friends--best"
+      );
+    } else {
+      friendsFilterValue = e.target.value;
+      render(filterFriends(friendsFilterValue, friends), ".friends");
+    }
+  });
 });
 
 document.addEventListener("click", (e) => {
@@ -58,9 +74,11 @@ document.addEventListener("click", (e) => {
       moveFriend(friends, bestFriends, friendId);
     }
 
-    // TODO: ??? apply filter on friends and bestFriends
-    render(friends, "");
-    render(bestFriends, ".friends--best");
+    render(filterFriends(friendsFilterValue, friends), ".friends");
+    render(
+      filterFriends(bestFriendsFilterValue, bestFriends),
+      ".friends--best"
+    );
   }
 });
 
@@ -71,9 +89,6 @@ function render(friendsArr, selector) {
   const results = document.querySelector(`${selector} .friends__list`);
   results.innerHTML = html;
 }
-
-let friends = [];
-let bestFriends = [];
 
 (async () => {
   try {
