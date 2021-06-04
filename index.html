@@ -15,7 +15,7 @@
 
 <body>
   <div class="main">
-    <div class="friends">
+    <div class="friends friends--all">
       <input type="text" placeholder="фильтр" class="input">
       <h2 class="friends__title"></h2>
       <div class="friends__list">
@@ -35,8 +35,8 @@
   <script id="user-template" type="text/x-handlebars-template">
 
     {{#each items}}
-        <div class="friend" data-id="{{id}}">
-          <div class="friend__item">
+        <div class="friend" data-id="{{id}}" draggable="true">
+          <div class="friend__item" >
             <div class="friend__avatar">
             <img class="friend__image" src="{{photo_100}}"/>
           </div>

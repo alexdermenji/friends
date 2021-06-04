@@ -1,3 +1,7 @@
+const inputs = document.querySelectorAll(".input");
+const leftZone = document.querySelector(".friends--all");
+const rightZone = document.querySelector(".friends--best");
+
 VK.init({ apiId: 7870754 });
 
 function auth() {
@@ -25,6 +29,47 @@ function callApi(method, params) {
   });
 }
 
+let currentDrag;
+
+function getCurrentZone(from) {
+  return from.closest(".friends__list");
+}
+
+document.addEventListener("dragstart", (e) => {
+  const zone = getCurrentZone(e.target);
+
+  if (zone) {
+    currentDrag = { startZone: zone, node: e.target.closest(".friend") };
+
+    e.dataTransfer.setData("text/html", "...");
+  }
+});
+document.addEventListener("dragover", (e) => {
+  const zone = getCurrentZone(e.target);
+
+  if (zone) {
+    e.preventDefault();
+  }
+});
+document.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const zone = getCurrentZone(e.target);
+
+  if (currentDrag) {
+    if (zone && currentDrag.startZone !== zone) {
+      if (
+        e.target.classList.contains("friend__item") ||
+        e.target.closest(".friend__item")
+      ) {
+        zone.appendChild(currentDrag.node);
+      } else {
+        zone.insertBefore(currentDrag.node, zone.lastElementChild);
+      }
+    }
+    currentDrag = null;
+  }
+});
+
 let friends = [];
 let bestFriends = [];
 let friendsFilterValue = "";
@@ -48,7 +93,6 @@ function filterFriends(filterValue, friendsArr) {
   return filteredFriends;
 }
 
-const inputs = document.querySelectorAll(".input");
 inputs.forEach((input) => {
   input.addEventListener("keyup", (e) => {
     if (e.target.closest(".friends").classList.contains("friends--best")) {
